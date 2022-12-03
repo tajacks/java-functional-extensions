@@ -1,8 +1,8 @@
-package com.tajacks.libraries.utilities;
+package com.tajacks.libraries.functional.utilities;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
-import static com.tajacks.libraries.utilities.CollectionUtilities.*;
+import static com.tajacks.libraries.functional.utilities.CollectionUtilities.*;
 
 import java.util.ArrayList;
 import java.util.List;

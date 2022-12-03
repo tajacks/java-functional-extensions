@@ -1,7 +1,8 @@
-package com.tajacks.libraries.utilities;
+package com.tajacks.libraries.functional.utilities;
 
-import com.tajacks.libraries.common.Effect;
-import com.tajacks.libraries.common.Function;
+import com.tajacks.libraries.functional.common.Effect;
+import com.tajacks.libraries.functional.common.Function;
+
 import java.util.*;
 
 public class CollectionUtilities {
@@ -122,18 +123,40 @@ public class CollectionUtilities {
         return Collections.unmodifiableList(copiedList);
     }
 
-    public static <T, U> U foldLeft(List<T> toFold, U identity, Function<U, Function<T, U>> f) {
+    /**
+     * Folds a list starting at the left most (first) item in the list by applying the given folding function
+     * against the identity and all subsequent items in the list
+     *
+     * @param toFold          The list to fold left
+     * @param identity        The starting value
+     * @param foldingFunction A function that transforms a T to a U, applied first to the identity and the initial item in the list
+     * @param <T>             The type of the elements in the list
+     * @param <U>             The type of element to transform T's into
+     * @return The result of folding the list by applying the folding function to each item
+     */
+    public static <T, U> U foldLeft(List<T> toFold, U identity, Function<U, Function<T, U>> foldingFunction) {
         U result = identity;
         for (T t : toFold) {
-            result = f.apply(result).apply(t);
+            result = foldingFunction.apply(result).apply(t);
         }
         return result;
     }
 
-    public static <T, U> U foldRight(List<T> toFold, U identity, Function<T, Function<U, U>> f) {
+    /**
+     * Folds a list starting at the right most (last) item in the list by applying the given folding function
+     * against the identity and all previous items in the list.
+     *
+     * @param toFold          The list to fold right
+     * @param identity        The starting value
+     * @param foldingFunction A function that transforms a T to a U, applied first to the identity and the intial item in the list
+     * @param <T>             The type of elements in the list
+     * @param <U>             The type of element to transform T's into
+     * @return The result of folding the list by applying the golding function to each item
+     */
+    public static <T, U> U foldRight(List<T> toFold, U identity, Function<T, Function<U, U>> foldingFunction) {
         U result = identity;
         for (int i = toFold.size(); i > 0; i--) {
-            result = f.apply(toFold.get(i - 1)).apply(result);
+            result = foldingFunction.apply(toFold.get(i - 1)).apply(result);
         }
         return result;
     }
@@ -151,12 +174,28 @@ public class CollectionUtilities {
         return Collections.unmodifiableList(workingCopy);
     }
 
+    /**
+     * Applies an effect to each item in a collection
+     *
+     * @param ts     The collection of items to apply an effect against
+     * @param effect The effect to apply to each item in the collection
+     * @param <T>    The type of elements present in the collection
+     */
     public static <T> void forEach(Collection<T> ts, Effect<T> effect) {
         for (T t : ts) {
             effect.apply(t);
         }
     }
 
+    /**
+     * Unfolds starting from an initial seed value, resulting in a list
+     *
+     * @param seed      The starting value of the unfolding operation
+     * @param unfolder  A function which takes a T and makes another T
+     * @param predicate The predicate to apply to the current value indicating if unfolding should continue
+     * @param <T>       The type of elements in the resulting list
+     * @return A list containing the items resulting from the unfolding operation
+     */
     public static <T> List<T> unfold(T seed, Function<T, T> unfolder, Function<T, Boolean> predicate) {
         List<T> results = new ArrayList<>();
         T temp = seed;
