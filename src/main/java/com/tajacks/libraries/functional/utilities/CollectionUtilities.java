@@ -2,7 +2,6 @@ package com.tajacks.libraries.functional.utilities;
 
 import com.tajacks.libraries.functional.common.Effect;
 import com.tajacks.libraries.functional.common.Function;
-
 import java.util.*;
 
 public class CollectionUtilities {
