@@ -33,7 +33,7 @@ public interface Function<T, R> {
      * Returns a composed function which applies the given function
      * against the product of applying this function against an input element
      *
-     * @param f
+     * @param f The function to compose with this
      * @return A composed function which applies the given function
      * against the product of applying this function against an input element
      */
