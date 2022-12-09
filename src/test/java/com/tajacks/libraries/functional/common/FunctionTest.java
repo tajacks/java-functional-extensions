@@ -40,15 +40,13 @@ public class FunctionTest {
 
     @Test
     public void canAndThen_usingStaticMethod_takingParams() {
-        int result = Function.andThen(intToString, stringCounter)
-                .apply(100);
+        int result = Function.andThen(intToString, stringCounter).apply(100);
         assertThat(result).isEqualTo(3);
     }
 
     @Test
     public void canCompose_usingStaticMethod_takingParams() {
-        int result = Function.compose(stringCounter, intToString)
-                .apply(100);
+        int result = Function.compose(stringCounter, intToString).apply(100);
         assertThat(result).isEqualTo(3);
     }
 
