@@ -1,11 +1,12 @@
 package com.tajacks.libraries.functional.common;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ExecutableTest {
+class ExecutableTest {
 
     @Test
-    public void canExecuteThings() {
+    void canExecuteThings() {
         Executable ex = () -> System.out.println("Test");
+        ex.exec();
     }
 }

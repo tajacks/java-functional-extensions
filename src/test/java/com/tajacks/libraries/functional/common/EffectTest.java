@@ -12,7 +12,7 @@ class EffectTest {
     // Mutable lists are used to demonstrate that the void effect is taking action
 
     @Test
-    public void canApplyEffect() {
+    void canApplyEffect() {
         List<String> mutableExampleList = new ArrayList<>(List.of("One"));
         Effect<String> addToList = mutableExampleList::add;
         addToList.apply("Two");
@@ -20,7 +20,7 @@ class EffectTest {
     }
 
     @Test
-    public void canApplyEffectAndThenAnother() {
+    void canApplyEffectAndThenAnother() {
         List<String> mutableExampleList = new ArrayList<>(List.of("One"));
         Effect<String> addToList = mutableExampleList::add;
         Effect<String> addToListAgain = addToList.andThen(addToList);
@@ -29,7 +29,7 @@ class EffectTest {
     }
 
     @Test
-    public void canApplyEffectAndThenAnotherStatic() {
+    void canApplyEffectAndThenAnotherStatic() {
         List<String> mutableExampleList = new ArrayList<>(List.of("One"));
         Effect<String> doubleListAdder = andThen(mutableExampleList::add, mutableExampleList::add);
         doubleListAdder.apply("Two");

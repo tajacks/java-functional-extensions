@@ -6,26 +6,26 @@ import static com.tajacks.libraries.functional.recursion.TailCall.suspending;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigInteger;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class TailCallTest {
+class TailCallTest {
 
     // This would otherwise overflow the stack
     @Test
-    public void canPerformStackBasedRecursion() {
+    void canPerformStackBasedRecursion() {
         int additionResult = add(3, 100000000);
         assertThat(additionResult).isEqualTo(100000003);
     }
 
     // This would otherwise overflow the stack
     @Test
-    public void canPerformLargeFib() {
+    void canPerformLargeFib() {
         BigInteger res = fib(10000);
         assertThat(res).isGreaterThan(BigInteger.ONE);
     }
 
     @Test
-    public void callingResume_onReturning_throws() {
+    void callingResume_onReturning_throws() {
         assertThrows(IllegalStateException.class, () -> {
             TailCall<String> x = TailCall.returning("");
             x.resume();
